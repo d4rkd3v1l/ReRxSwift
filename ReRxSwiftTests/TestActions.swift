@@ -5,6 +5,7 @@ import ReSwift
 struct TestAction: Action {
     let newString: String
 }
+
 extension TestAction: Equatable {
     static func ==(lhs: TestAction, rhs: TestAction) -> Bool {
         return lhs.newString == rhs.newString
