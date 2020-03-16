@@ -21,7 +21,7 @@ class SteppingUpViewControllerSpec: QuickSpec {
             steppingUpViewController = steppingUp
             expect(steppingUpViewController.view).toNot(beNil())
 
-            testStore = Store<AppState>(reducer: mainReducer, state: nil)
+            testStore = Store<AppState>(reducer: testReducer, state: nil)
             steppingUpViewController.connection.store = testStore
         }
 
@@ -42,7 +42,7 @@ class SteppingUpViewControllerSpec: QuickSpec {
             it("is connected") {
                 let state = appState(
                     steppingUp: SteppingUpState(value: 0.3, stepSize: 0.1))
-                testStore.state = state
+                testStore.dispatch(ResetState(newState: state))
                 expect(steppingUpViewController.slider.value) ≈ 0.3
             }
 
@@ -54,7 +54,7 @@ class SteppingUpViewControllerSpec: QuickSpec {
                 it("is no longer connected") {
                     let state = appState(
                         steppingUp: SteppingUpState(value: 0.3, stepSize: 0.1))
-                    testStore.state = state
+                    testStore.dispatch(ResetState(newState: state))
                     expect(steppingUpViewController.slider.value) ≈ initialSteppingUpState.value
                 }
             }

@@ -20,7 +20,7 @@ class TableViewControllerSpec: QuickSpec {
             tableViewController = table
             expect(tableViewController.view).toNot(beNil())
 
-            testStore = Store<AppState>(reducer: mainReducer, state: nil)
+            testStore = Store<AppState>(reducer: testReducer, state: nil)
             tableViewController.connection.store = testStore
         }
 
@@ -89,7 +89,7 @@ class TableViewControllerSpec: QuickSpec {
             it("is connected") {
                 let state = appState(tableAndCollection:
                     TableAndCollectionState(categories: cats))
-                testStore.state = state
+                testStore.dispatch(ResetState(newState: state))
                 expect(tableViewController.tableView.dataSource?.numberOfSections?(in: tableViewController.tableView)).toEventually(equal(1))
             }
 
@@ -101,7 +101,7 @@ class TableViewControllerSpec: QuickSpec {
                 it("is no longer connected") {
                     let state = appState(tableAndCollection:
                         TableAndCollectionState(categories: cats))
-                    testStore.state = state
+                    testStore.dispatch(ResetState(newState: state))
                     expect(tableViewController.tableView.dataSource?.numberOfSections?(in: tableViewController.tableView)).toEventually(equal(
                         initialTableAndCollectionState.categories.count
                     ))

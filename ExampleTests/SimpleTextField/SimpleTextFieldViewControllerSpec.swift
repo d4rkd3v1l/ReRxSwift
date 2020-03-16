@@ -21,7 +21,7 @@ class SimpleTextFieldViewControllerSpec: QuickSpec {
             simpleController = simple
             expect(simpleController.view).toNot(beNil())
 
-            testStore = Store<AppState>(reducer: mainReducer, state: nil)
+            testStore = Store<AppState>(reducer: testReducer, state: nil)
             simpleController.connection.store = testStore
         }
 
@@ -41,7 +41,7 @@ class SimpleTextFieldViewControllerSpec: QuickSpec {
 
             it("is connected") {
                 let state = appState(simpleTextField: SimpleTextFieldState(content: "test content"))
-                testStore.state = state
+                testStore.dispatch(ResetState(newState: state))
                 expect(simpleController.textField.text) == "test content"
             }
 
@@ -52,7 +52,7 @@ class SimpleTextFieldViewControllerSpec: QuickSpec {
 
                 it("is no longer connected") {
                     let state = appState(simpleTextField: SimpleTextFieldState(content: "test content"))
-                    testStore.state = state
+                    testStore.dispatch(ResetState(newState: state))
                     expect(simpleController.textField.text) == initialSimpleTextFieldState.content
                 }
             }
