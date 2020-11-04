@@ -1,3 +1,11 @@
+2.2.2
+=====
+Introduces Swift Package Manager support. Thanks @LucianoPolit!
+
+2.2.1
+=====
+Updates Swift version in podspec to 5.
+
 2.2.0
 =====
 Updated ReSwift dependency to ReSwift 5. Thanks again @mzgnr!
